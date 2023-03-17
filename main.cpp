@@ -19,11 +19,11 @@ int main(){
     bool worked = false;
 
     //Add elements to zll
-    for(int i = 0; i < sizeof(randInts)/sizeof(int); i++)
+    for(int i = 0; i < (int)sizeof(randInts)/sizeof(int); i++)
     {
         worked = myzll.front(randInts[i]);
     }
-    for(int i = 0; i < sizeof(randInts2)/sizeof(int); i++)
+    for(int i = 0; i < (int)sizeof(randInts2)/sizeof(int); i++)
     {
         worked = myzllBack.back(randInts2[i]);
     }
@@ -36,11 +36,15 @@ int main(){
         worked = myzllSback.back(randStrings2[i]);
     }
 
-    myzll.printList();
-    myzllBack.printList();
-    myzllS.printList();
-    myzllSback.printList();
-    cout << endl;
+    if(worked)
+    {
+        myzll.printList();
+        myzllBack.printList();
+        myzllS.printList();
+        myzllSback.printList();
+        cout << endl;
+    }
+    
 
     //myzll-=myzllBack;
     //myzll.removeZany();

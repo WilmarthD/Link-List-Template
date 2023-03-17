@@ -34,6 +34,7 @@ template<typename T> class ZLL {
     int removeZany();
     int removeNonZany();
     bool promoteZany();
+    bool empty();
 
     bool start();
     bool done();
@@ -42,7 +43,7 @@ template<typename T> class ZLL {
 
     //Extra functions to delete later probably
     bool isEmpty();
-    bool removeNode(unsigned int nodeIndex);
+    bool removeNode(int nodeIndex);
     void printList();
 
     private:

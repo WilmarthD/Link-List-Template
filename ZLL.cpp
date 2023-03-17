@@ -7,23 +7,7 @@ template <typename T> ZLL<T>::ZLL(){
 }
 
 template <typename T> ZLL<T>::~ZLL(){
-    while(head != nullptr)
-    {
-        //remove front
-        Node<T>* temp = head;
-        T data = temp->data;
-        if(head == tail)
-        {
-            head = nullptr;
-            tail = nullptr;
-        }
-        else{
-            head = head->next;
-            head->prev = nullptr;
-        }
-        delete temp;
-        listSize--;
-    }
+    this->empty();
 }
 
 template <typename T> Node<T>::Node(){
@@ -261,6 +245,31 @@ template<typename T> bool ZLL<T>::promoteZany(){
     return true;
 }
 
+template<typename T> bool ZLL<T>::empty(){
+    if(isEmpty())
+    {
+        return false;
+    }
+    while(head != nullptr)
+    {
+        //remove front
+        Node<T>* temp = head;
+        //T data = temp->data;
+        if(head == tail)
+        {
+            head = nullptr;
+            tail = nullptr;
+        }
+        else{
+            head = head->next;
+            head->prev = nullptr;
+        }
+        delete temp;
+        listSize--;
+    }
+    return true;
+}
+
 template<typename T> bool ZLL<T>::start(){
     if(!isEmpty())
     {
@@ -309,7 +318,7 @@ template<typename T> void ZLL<T>::printList(){
     
 }
 
-template<typename T> bool ZLL<T>::removeNode(unsigned int nodeIndex){
+template<typename T> bool ZLL<T>::removeNode(int nodeIndex){
     Node<T>* currNode = head;
     Node<T>* currNodePrev;
     Node<T>* currNodeNext;
