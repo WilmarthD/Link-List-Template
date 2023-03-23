@@ -2,10 +2,20 @@
 #include <string>
 #include <iomanip>
 #include "ZLL.h"
+#include "zany.h"
+#include "Crayon.h"
 
 using namespace std;
 
+template <typename T>
+void reportZany(const T &param) {
+	cout << param << " is ";
+	if (!isZany(param)) cout << "not ";
+	cout << "zany" << endl;
+}
+
 int main(){
+    /*
     ZLL<int> myzll;
     ZLL<int> myzllBack;
     ZLL<string> myzllS;
@@ -44,7 +54,9 @@ int main(){
         myzllSback.printList();
         cout << endl;
     }
-    
+    //myzll.removeZany();
+    //myzll.removeNonZany();
+    //myzll.removeZany();
 
     //myzll-=myzllBack;
     //myzll.removeZany();
@@ -59,10 +71,47 @@ int main(){
     myzll.start();
     while(!myzll.done())
     {
-        cout << myzll.getNext() << " ";
+        cout << myzll.getNext() << " " << endl;
     }
     cout << endl << endl;
     cout << endl << myzll.getNext() << endl;
+    */
+
+    int one = 1;
+	int two = 2;
+	string one_str = "one";
+	string two_str = "Two";
+    Crayon one_crayon("Purple", 5);
+	Crayon two_crayon("Yellow", 3);
+    Crayon three_crayon("Black", 4);
+
+
+	reportZany(one);
+	reportZany(two);
+	reportZany(one_str);
+	reportZany(two_str);
+	reportZany(one_crayon);
+	reportZany(two_crayon);
+
+	ZLL<int> zll1;
+	ZLL<string> zll2;
+	ZLL<Crayon> zll3;
+
+    int randInts[] = {5, 2, 3, 6, 7, 18, 25, 4};
+    for(int i = 0; i < 8; i++)
+    {
+        zll1.front(randInts[i]);
+    }
+	zll1.back(1);
+    zll1.back(65);
+
+	zll2.back("bird");
+    zll2.front("Three");
+	zll2.back("Snape");
+
+	zll3.back(one_crayon);
+    zll3.front(two_crayon);
+    zll3.front(three_crayon);
 
     return 0;
 }

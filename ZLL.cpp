@@ -93,6 +93,10 @@ template<typename T> bool ZLL<T>::join(ZLL &other){
 
         return true;
     }
+    else if((isEmpty() && other.isEmpty()) || (!isEmpty() && other.isEmpty()))
+    {
+        return true;
+    }
 
     return false;
 }
@@ -114,7 +118,7 @@ template<typename T> ZLL<T>& ZLL<T>::operator+=(const ZLL &other){
     }
     return *this;
 }
-
+//problem here with line 149------------------------------------------------------------------------------while gdb
 template<typename T> ZLL<T>& ZLL<T>::operator-=(const ZLL &other){
     if(this == &other)
     {
@@ -142,8 +146,18 @@ template<typename T> ZLL<T>& ZLL<T>::operator-=(const ZLL &other){
                     //Head case
                     if(currNodeThis == head)
                     {
-                        currNodeNext->prev = nullptr;
-                        head = currNodeNext;
+                        if(listSize != 1)
+                        {
+                            currNodeNext->prev = nullptr;
+                            head = currNodeNext;
+                        }
+                        else{
+                            //If only head
+                            head = nullptr;
+                            tail = nullptr;
+                        }
+                        
+                        
                     }
                     else if(currNodeThis == tail) //Tail case
                     {
@@ -195,7 +209,6 @@ template<typename T> int ZLL<T>::removeZany(){
         }
         currNode = currNode->next;
     }
-
     return removeCount;
 }
 
@@ -280,22 +293,30 @@ template<typename T> bool ZLL<T>::start(){
 }
 
 template<typename T> bool ZLL<T>::done(){
-
-    if(iterator == tail)
+    //if(iterator == tail && head != tail)
+    if(iterator == nullptr)
     {
         return true;
     }
-    return false;
+    else if(isEmpty())
+    {
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 template<typename T> T ZLL<T>::getNext(){
+    T tempData;
+
     if(!done())
     {
+        tempData = iterator->data;
         iterator = iterator->next;
-        return iterator->data;
     }
-    T data;
-    return data;
+    
+    return tempData;
 }
 
 template<typename T> void ZLL<T>::printList(){
@@ -322,36 +343,48 @@ template<typename T> bool ZLL<T>::removeNode(int nodeIndex){
     Node<T>* currNode = head;
     Node<T>* currNodePrev;
     Node<T>* currNodeNext;
-    
-    for(int i = 0; i < nodeIndex; i++)
+    if(!isEmpty())
     {
-        currNodePrev = currNode;
-        currNode = currNode->next;
-    }
+        for(int i = 0; i < nodeIndex; i++)
+        {
+            currNodePrev = currNode;
+            currNode = currNode->next;
+        }
 
-    if(currNode == head)
-    {
-        currNodeNext = currNode->next;
-        
-        head = head->next;
-        head->prev = nullptr;
-    }
-    else if (currNode == tail)
-    {
-        currNodeNext = nullptr;
+        if(currNode == head)
+        {
+            if(listSize != 1)
+            {
+                currNodeNext = currNode->next;
+            
+                head = head->next;
+                head->prev = nullptr;
+            }
+            else{
+                head = nullptr;
+                tail = nullptr;
+            }
+        }
+        else if (currNode == tail)
+        {
+            currNodeNext = nullptr;
 
-        tail = tail->prev;
-        tail->next = nullptr;
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        else{
+            currNodeNext = currNode->next;
+
+            currNodePrev->next = currNodeNext;
+            currNodeNext->prev = currNodePrev;
+        }
+
+        delete currNode;
+        return true;
     }
     else{
-        currNodeNext = currNode->next;
-
-        currNodePrev->next = currNodeNext;
-        currNodeNext->prev = currNodePrev;
+        return false;
     }
-
-    delete currNode;
-    return true;
 }
 template<typename T> bool ZLL<T>::isEmpty(){
     if(head == nullptr)
