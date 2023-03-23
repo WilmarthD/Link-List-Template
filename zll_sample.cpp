@@ -15,67 +15,11 @@ void reportZany(const T &param) {
 }
 
 int main(){
-    /*
+    
     ZLL<int> myzll;
-    ZLL<int> myzllBack;
-    ZLL<string> myzllS;
-    ZLL<string> myzllSback;
-
-    //Radnom ints to insert
-    int randInts[] = {5, 2, 3, 6, 7, 18, 25, 4};
-    int randInts2[] = {5, 6, 7, 8, 11, 12, 1};
-    string randStrings[] = {"my", "Humps", "little", "Lumps"};
-    string randStrings2[] = {"My", "humps", "Little", "lumps", "Trump"};
-    bool worked = false;
-
-    //Add elements to zll
-    for(int i = 0; i < (int)sizeof(randInts)/sizeof(int); i++)
-    {
-        worked = myzll.front(randInts[i]);
-    }
-    for(int i = 0; i < (int)sizeof(randInts2)/sizeof(int); i++)
-    {
-        worked = myzllBack.back(randInts2[i]);
-    }
-    for(int i = 0; i < 4; i++)
-    {
-        worked = myzllS.front(randStrings[i]);
-    }
-    for(int i = 0; i < 5; i++)
-    {
-        worked = myzllSback.back(randStrings2[i]);
-    }
-
-    if(worked)
-    {
-        myzll.printList();
-        myzllBack.printList();
-        myzllS.printList();
-        myzllSback.printList();
-        cout << endl;
-    }
-    //myzll.removeZany();
-    //myzll.removeNonZany();
-    //myzll.removeZany();
-
-    //myzll-=myzllBack;
-    //myzll.removeZany();
-    //myzllBack.removeNonZany();
-    myzll.promoteZany();
-    myzllSback.promoteZany();
-
-    myzll.printList();
-    myzllSback.printList();
-
-    //Iterator check
-    myzll.start();
-    while(!myzll.done())
-    {
-        cout << myzll.getNext() << " " << endl;
-    }
-    cout << endl << endl;
-    cout << endl << myzll.getNext() << endl;
-    */
+    ZLL<int> zll1;
+	ZLL<string> zll2;
+	ZLL<Crayon> zll3;
 
     int one = 1;
 	int two = 2;
@@ -85,19 +29,24 @@ int main(){
 	Crayon two_crayon("Yellow", 3);
     Crayon three_crayon("Black", 4);
 
-
-	reportZany(one);
+    reportZany(one);
 	reportZany(two);
 	reportZany(one_str);
 	reportZany(two_str);
 	reportZany(one_crayon);
 	reportZany(two_crayon);
 
-	ZLL<int> zll1;
-	ZLL<string> zll2;
-	ZLL<Crayon> zll3;
-
+    //Random ints to insert
     int randInts[] = {5, 2, 3, 6, 7, 18, 25, 4};
+    int randInts2[] = {5, 6, 7, 8, 11, 12, 1};
+    bool worked = false;
+
+    //Add elements to zll
+    for(int i = 0; i < 7; i++)
+    {
+        worked = myzll.front(randInts2[i]);
+    }
+
     for(int i = 0; i < 8; i++)
     {
         zll1.front(randInts[i]);
@@ -108,10 +57,37 @@ int main(){
 	zll2.back("bird");
     zll2.front("Three");
 	zll2.back("Snape");
+    zll2.front("canyon");
+    zll2.front("Fodder");
+    zll2.front("darth");
 
 	zll3.back(one_crayon);
     zll3.front(two_crayon);
     zll3.front(three_crayon);
+
+    cout << endl << "zll1: ";
+    zll1.printList();
+    cout << "myzll: ";
+    myzll.printList();
+    cout << "myzll - zll1 = ";
+    myzll-=zll1;
+    zll1.removeZany();
+    zll1.removeNonZany(); //Checking there's no error here
+    myzll.printList();
+
+    cout << endl << "Promoting zanny: "<< endl;
+    zll2.printList();
+    zll2.promoteZany();
+    zll2.printList();
+
+    //Iterator check
+    cout << endl << "Stepping through with iterator: ";
+    myzll.start();
+    while(!myzll.done())
+    {
+        cout << myzll.getNext() << " ";
+    }
+    cout << endl << endl << "default value when going past done: " << myzll.getNext() << endl;
 
     return 0;
 }
