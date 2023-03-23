@@ -2,7 +2,7 @@ COURSE = cs240
 SEMESTER = spring2023
 CP_NUMBER = 3
 LASTNAME = Wilmarth
-GITUSERID = dwilmar1
+GITUSERID = WilmarthD
 EXE = zll_sample
 
 REPODIR = ../$(COURSE)-$(SEMESTER)-cp$(CP_NUMBER)-$(GITUSERID)
