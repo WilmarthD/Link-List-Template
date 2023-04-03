@@ -1,5 +1,5 @@
 # Link-List-Template
-# # Steps to running the program
+# - Steps to running the program
 - Download all repository with all files and folders
 - Run "make" or "make all" from the main directory (Not within bin or obj)
 - Call executable from bin folder
